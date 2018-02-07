@@ -1,0 +1,23 @@
+
+# Вызов makefil'а: команда make с опцией -f <имя Makefile>, 
+#т.к. название не стандартно (Makefile)
+
+# Переменная название компилятора
+CC = gcc 
+TARGET1 = all
+TARGET2 = clean
+SRC = main.c core.c
+PROG_NAME = my_prog
+H_N_DIR = inc
+
+
+TARGET1: $(SRC)
+# Вызов gcc с опцией -о (задать имя файла) <my_prog>, исходники,
+# опция -I <dir> устанавливаем папку для поиска загловков
+	$(CC) -o $(PROG_NAME) $(SRC) -I $(H_N_DIR) 
+
+#Цель  очистить каталог от всех файлов полученных в результате компиляции
+TARGET2: 
+	#rm -rf my_prog
+	rm -rf TARGET1 *.exe
+# Стандартная цель all -копиляция программы

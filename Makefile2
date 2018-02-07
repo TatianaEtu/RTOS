@@ -1,0 +1,28 @@
+CC=gcc
+IDIR=inc
+COPT=-I $(IDIR)
+
+_DEPS=core.h
+DEPS=$(addprefix $(IDIR)/,$(_DEPS))
+
+ODIR=obj
+_SRC=main.c core.c
+_OBJ=$(_SRC:.c=.o)
+# _OBJ=main.o core.o
+OBJ=$(addprefix $(ODIR)/,$(_OBJ))
+# OBJ=obj/main.o obj/core.o
+PRNAME=prog
+
+all: $(ODIR) $(PRNAME)
+
+$(ODIR):
+	mkdir -p $@
+
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(COPT)
+
+$(PRNAME): $(OBJ)
+	$(CC) -o $(PRNAME) $^
+
+clean:
+	rm -rf $(ODIR) $(PRNAME)
